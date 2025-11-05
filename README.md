@@ -1,4 +1,4 @@
-# RuinaLibRARY
+# Ruinalibrary
 
 A backend and database-driven system used for managing library operations.  
 This project provides core functionalities including:
