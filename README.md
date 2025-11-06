@@ -1,4 +1,8 @@
 # DBProject_Group4_LibraryBorrowingTracker
+members : 
+Klara Ahinta Daniswara (24/532751/PA/22531)
+Daffa Aryza Pasya (24/532884/PA/22549)
+Shadiq Arif Aryasatya (24/536702/PA/22763)
 
 A backend and database-driven system used for managing library operations.  
 This project provides core functionalities including:
