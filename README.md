@@ -1,4 +1,4 @@
-# Ruinalibrary
+# DBProject_Group4_LibraryBorrowingTracker
 
 A backend and database-driven system used for managing library operations.  
 This project provides core functionalities including:
