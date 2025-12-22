@@ -1,1 +1,0 @@
-Make a folder called "node_modules" to the root of the folder to test
