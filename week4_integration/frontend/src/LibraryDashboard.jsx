@@ -501,7 +501,12 @@ function AdminDashboard({ theme, profile, isDarkMode, setMessage, fetchData, vie
                         </button>
                     ))}
                 </div>
-                <AdminDashboard.Viewer theme={theme} isDarkMode={isDarkMode} viewData={viewData} activeView={activeView} />
+<AdminDashboardViewer
+    theme={theme}
+    isDarkMode={isDarkMode}
+    viewData={viewData}
+    activeView={activeView}
+/>
             </div>
         </div>
     );
@@ -658,6 +663,80 @@ function MemberDashboard({ theme, profile, isDarkMode, setMessage, fetchData, vi
         </div>
     );
 }
+function Dashboard({
+    profile,
+    theme,
+    isDarkMode,
+    message,
+    setMessage,
+    setProfile,
+    toggleTheme,
+    fetchData,
+    viewData,
+    activeView,
+    setActiveView,
+    notifications,
+    setNotifications,
+    handleBorrowRequestFromMember,
+}) {
+    const [currentDate, setCurrentDate] = useState('');
+
+    useEffect(() => {
+        const date = new Date().toLocaleDateString(undefined, { 
+            weekday: 'short',
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+        });
+        setCurrentDate(date);
+    }, []);
+
+    if (!profile.isLoggedIn) {
+        return <LoginScreen theme={theme} setProfile={setProfile} setMessage={setMessage} />;
+    }
+
+    return (
+        <>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                <h1 style={{ color: theme.text }}>Library Companion</h1>
+                <span style={{ fontSize: '14px', color: theme.text }}>{currentDate}</span>
+
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <span style={{ marginRight: '20px', color: theme.text }}>
+                        Logged in as: <strong>{profile.fullName}</strong> ({profile.role})
+                    </span>
+                    <button onClick={toggleTheme}>Toggle Theme</button>
+                    <button onClick={() => setProfile({ isLoggedIn: false })}>Logout</button>
+                </div>
+            </div>
+
+            {profile.role === 'Staff' ? (
+                <AdminDashboard
+                    theme={theme}
+                    profile={profile}
+                    isDarkMode={isDarkMode}
+                    setMessage={setMessage}
+                    fetchData={fetchData}
+                    viewData={viewData}
+                    activeView={activeView}
+                    setActiveView={setActiveView}
+                    notifications={notifications}
+                    setNotifications={setNotifications}
+                />
+            ) : (
+                <MemberDashboard
+                    theme={theme}
+                    profile={profile}
+                    isDarkMode={isDarkMode}
+                    setMessage={setMessage}
+                    fetchData={fetchData}
+                    viewData={viewData}
+                    handleBorrowRequestFromMember={handleBorrowRequestFromMember}
+                />
+            )}
+        </>
+    );
+}
 
 // --- MAIN APPLICATION COMPONENT ---
 
@@ -725,82 +804,27 @@ export default function App() {
         setNotifications(prev => [...prev, request]);
     };
     
-    const renderDashboard = () => {
-        const [currentDate, setCurrentDate] = useState('');
 
-        useEffect(() => {
-            const date = new Date().toLocaleDateString(undefined, { 
-                weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' 
-            });
-            setCurrentDate(date);
-        }, []);
-        
-        if (!profile.isLoggedIn) {
-            return <LoginScreen theme={theme} setProfile={setProfile} setMessage={setMessage} />;
-        }
-        
-        return (
-            <>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                    <h1 style={{ color: theme.text }}>Library Companion</h1>
-                    <span style={{ fontSize: '14px', color: theme.text }}>{currentDate}</span> {/* DATE DISPLAY */}
-
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <span style={{ marginRight: '20px', color: theme.text }}>
-                            Logged in as: <strong>{profile.fullName}</strong> ({profile.role})
-                        </span>
-                        <button onClick={toggleTheme} style={{ padding: '10px 15px', backgroundColor: theme.cardBackground, color: theme.text, border: `1px solid ${theme.border}`, borderRadius: '5px', cursor: 'pointer', marginRight: '10px' }}>
-                            {isDarkMode ? '🌞 Light Mode' : '🌙 Dark Mode'}
-                        </button>
-                        <button onClick={() => setProfile({ isLoggedIn: false, role: '', email: '', id: null, fullName: '' })} style={{ padding: '10px 15px', backgroundColor: theme.error, color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>
-                            Logout
-                        </button>
-                    </div>
-                </div>
-
-                <div style={{ 
-                    padding: '10px', 
-                    backgroundColor: message.startsWith('✅') ? '#d4edda' : message.startsWith('❌') ? theme.error : theme.cardBackground,
-                    border: message ? `1px solid ${theme.border}` : 'none',
-                    marginBottom: '20px',
-                    fontWeight: 'bold',
-                    color: message.startsWith('❌') ? 'white' : theme.text
-                }}>
-                    {message || 'Ready. Test actions based on your logged-in role.'}
-                </div>
-                
-                {profile.role === 'Staff' ? (
-                    <AdminDashboard 
-                        theme={theme} 
-                        profile={profile} 
-                        isDarkMode={isDarkMode}
-                        setMessage={setMessage} 
-                        fetchData={fetchData} 
-                        viewData={viewData}
-                        setActiveView={setActiveView}
-                        activeView={activeView}
-                        notifications={notifications}
-                        setNotifications={setNotifications}
-                    />
-                ) : (
-                    <MemberDashboard 
-                        theme={theme} 
-                        profile={profile} 
-                        isDarkMode={isDarkMode}
-                        setMessage={setMessage} 
-                        fetchData={fetchData} 
-                        viewData={viewData}
-                        handleBorrowRequestFromMember={handleBorrowRequestFromMember}
-                    />
-                )}
-            </>
-        );
-    };
 
     return (
         <div style={{ backgroundColor: theme.background, minHeight: '100vh', transition: 'background-color 0.3s' }}>
             <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '20px' }}>
-                {renderDashboard()}
+<Dashboard
+    profile={profile}
+    theme={theme}
+    isDarkMode={isDarkMode}
+    message={message}
+    setMessage={setMessage}
+    setProfile={setProfile}
+    toggleTheme={toggleTheme}
+    fetchData={fetchData}
+    viewData={viewData}
+    activeView={activeView}
+    setActiveView={setActiveView}
+    notifications={notifications}
+    setNotifications={setNotifications}
+    handleBorrowRequestFromMember={handleBorrowRequestFromMember}
+/>
             </div>
         </div>
     );
@@ -813,35 +837,29 @@ const tdStyle = (theme) => ({ padding: '8px', border: `1px solid ${theme.border}
 
 // --- ADMIN DASHBOARD VIEWER SUB-COMPONENT (Local Search) ---
 
-AdminDashboard.Viewer = function ({ theme, isDarkMode, viewData, activeView }) {
+function AdminDashboardViewer({ theme, isDarkMode, viewData, activeView }) {
     const [searchTerm, setSearchTerm] = useState('');
 
     const filterData = (data) => {
         if (!searchTerm) return data;
-        const lowerCaseSearch = searchTerm.toLowerCase();
-        
-        return data.filter(item => 
-            Object.entries(item).some(([key, value]) => {
-                if (key.toLowerCase() === 'password') return false;
-                return String(value).toLowerCase().includes(lowerCaseSearch);
-            })
+        return data.filter(item =>
+            Object.values(item).some(value =>
+                String(value).toLowerCase().includes(searchTerm.toLowerCase())
+            )
         );
     };
 
     const data = viewData[activeView];
     const filteredData = filterData(data);
-    
+
     return (
         <div>
-            <input 
+            <input
                 type="text"
-                placeholder={`Search ${activeView}...`}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                style={{ ...getStyle(isDarkMode, 'input', theme), width: '90%', marginBottom: '15px' }}
             />
-            <h4 style={{ color: theme.text }}>Showing: {filteredData.length} of {data.length} records.</h4>
-            <pre style={getStyle(isDarkMode, 'pre', theme)}>{JSON.stringify(filteredData, null, 2)}</pre>
+            <pre>{JSON.stringify(filteredData, null, 2)}</pre>
         </div>
     );
-};
+}
