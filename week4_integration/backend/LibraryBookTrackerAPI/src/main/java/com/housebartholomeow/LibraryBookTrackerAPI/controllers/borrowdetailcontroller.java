@@ -49,7 +49,7 @@ public borrowdetail borrowBook(@RequestBody borrowdetail request) {
     @PutMapping("/return/{id}")
     public ResponseEntity<borrowdetail> returnBook (
         @PathVariable int id,
-        @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate returnDate) { // ✅ Changed to LocalDate
+        @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate returnDate) {
     
     borrowdetail updated = borrowService.returnBook(id, returnDate);
     return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
