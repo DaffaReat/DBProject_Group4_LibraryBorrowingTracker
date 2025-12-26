@@ -45,7 +45,7 @@ public class finecontroller {
     // UPDATE (mark fine paid)
     @PutMapping("/pay/{id}")
     public ResponseEntity<fine> markPaid(@PathVariable int id,
-                                         @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate datePaid) { // ✅ CHANGED TO LocalDate
+                                         @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate datePaid) {
         fine updated = fineService.markFinePaid(id, datePaid);
         return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
     }
