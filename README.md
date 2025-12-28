@@ -12,3 +12,11 @@ This project provides core functionalities including:
 - **Reporting features**: Generate basic reports for library usage and bookings.
 
 This repository contains the full design, implementation, and documentation of the system.
+
+## Installation and Setup
+
+1. Clone the Github Repository
+```bash
+$ git clone https://github.com/DaffaReat/DBProject_Group4_LibraryBorrowingTracker
+```
+3. Run Spring application
