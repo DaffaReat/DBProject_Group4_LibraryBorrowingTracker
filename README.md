@@ -14,7 +14,10 @@ This project provides core functionalities including:
 This repository contains the full design, implementation, and documentation of the system.
 
 ## Installation and Setup
-Using Git Bash, clone the Github Repository
+
+### All command line commands will be in Git Bash.
+
+Clone the Github Repository
 ```bash
 $ git clone https://github.com/DaffaReat/DBProject_Group4_LibraryBorrowingTracker
 ```
@@ -25,5 +28,23 @@ username and password.
 spring.datasource.username=[MYSQL USERNAME]
 spring.datasource.password=[MYSQL PASSWORD]
 ```
-Run Spring Application
+Run Spring Application in the IDE.
 ![Run Spring Application](week4_integration/images/run-spring-application.jpg)
+
+Backend will run on 'http://localhost:8080'.
+
+### Frontend
+Navigate to the frontend folder of the project
+```bash
+cd week4_integration/frontend
+```
+Install dependencies
+```bash
+npm install
+```
+Run the React Application
+```bash
+npm start
+```
+
+Frontend will run on 'http://localhost:3000'.
