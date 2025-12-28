@@ -14,15 +14,16 @@ This project provides core functionalities including:
 This repository contains the full design, implementation, and documentation of the system.
 
 ## Installation and Setup
-Clone the Github Repository
+Using Git Bash, clone the Github Repository
 ```bash
 $ git clone https://github.com/DaffaReat/DBProject_Group4_LibraryBorrowingTracker
 ```
 ### Backend
-In appliation.properties, make sure [MYSQL USERNAME] and [MYSQL PASSWORD] is set to the responding MYSQL
+In appliation.properties, make sure [MYSQL USERNAME] and [MYSQL PASSWORD] are set to the responding MYSQL
 username and password.
 ```
 spring.datasource.username=[MYSQL USERNAME]
 spring.datasource.password=[MYSQL PASSWORD]
 ```
 Run Spring Application
+![Run Spring Application](week4_integration/images/run-spring-application.jpg)
