@@ -21,8 +21,8 @@ $ git clone https://github.com/DaffaReat/DBProject_Group4_LibraryBorrowingTracke
 ### Backend
 In appliation.properties, make sure [MYSQL USERNAME] and [MYSQL PASSWORD] is set to the responding MYSQL
 username and password.
-`
+``
 spring.datasource.username=[MYSQL USERNAME]
 spring.datasource.password=[MYSQL PASSWORD]
-`
+``
 Run Spring Application
