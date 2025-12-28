@@ -22,16 +22,17 @@ Clone the Github Repository
 $ git clone https://github.com/DaffaReat/DBProject_Group4_LibraryBorrowingTracker
 ```
 ### Backend
-In appliation.properties, make sure [MYSQL USERNAME] and [MYSQL PASSWORD] are set to the responding MYSQL
+In appliation.properties, create a database in MYSQL called "library_borrow_tracker" and make sure [MYSQL USERNAME] and [MYSQL PASSWORD] are set to the responding MYSQL
 username and password.
 ```
+spring.datasource.url=jdbc:mysql://localhost:3306/library_borrow_tracker
 spring.datasource.username=[MYSQL USERNAME]
 spring.datasource.password=[MYSQL PASSWORD]
 ```
 Run Spring Application in the IDE.
 ![Run Spring Application](week4_integration/images/run-spring-application.jpg)
 
-Backend will run on 'http://localhost:8080'.
+Backend will run on http://localhost:8080.
 
 ### Frontend
 Navigate to the frontend folder of the project
@@ -47,4 +48,4 @@ Run the React Application
 npm start
 ```
 
-Frontend will run on 'http://localhost:3000'.
+Frontend will run on http://localhost:3000.
